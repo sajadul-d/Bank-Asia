@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Asia</title>
+    <!-- Bootstrap linked css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- CSS file added  -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google fonts use -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+   
+    <div id="all-login">
+        <img  src="images/bank_asia_logo.jpg" alt="">
+        <h2 class="text-center heading">Welcome to Bank Asia</h2>
+        <h4 id="name">Login Form</h4>
+        <div class="input-section shadow-lg p-3 mb-5 bg-white rounded">
+
+            <!-- image add -->
+             <div class="image-container">
+                 <img id="image-fix" src="images/login2.png" alt="this is an image ">
+             </div>
+
+             <!-- login input create -->
+             <div class="container">
+                 <label for="uname"><b>Username</b></label>
+                 <input type="text" placeholder="Enter Username" name="uname" required>
+                 <label for="psw"><b>Password</b></label>
+                 <input type="password" placeholder="Enter Password" name="psw" required>
+
+                 
+                 
+                 <button onclick="loginHandle()" type="submit" class="sub" id="login"><b id="color">Login</b></button>
+                 <br>
+                 <label>
+                    <input type="checkbox" checked="checked" name="remember"> <b> Remember me</b>
+                  </label>
+
+
+                  <!-- cancel and forget button add -->
+                  <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" class="cancelbtn btn btn-danger">Cancel</button>
+                    <span class="psw"> <b>Forgot</b> <a href="#">password?</a></span>
+                  </div>
+
+
+             </div>
+
+        </div>
+
+    </div>
+
+<!--    Transaction area is started here -->
+
+    <div id="transaction-area">
+        <h1 class="text-center heading">Welcome to Bank Asia Online Transaction</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$ <span id="currentWithdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="currentBalance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                  
+                    <input id="depositAmount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                    <br>
+                    <button onclick="handleDeposit()" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit-area">
+                    
+                    <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <br>
+                    <button  onclick="handleWithdraw()" class="btn btn-success">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // login button  working 
+        const loginArea = document.getElementById("all-login");
+        function loginHandle(){
+            loginArea.style.display = "none";
+            const transactionArea = document.getElementById("transaction-area");
+            transactionArea.style.display = "block";
+        }
+
+        //deposit button
+        
+        function handleDeposit(){
+            var currentDeposit = document.querySelector("#currentDeposit") 
+            var depositAmount = document.getElementById("depositAmount")
+            var temp = depositAmount.value 
+            var extra = currentDeposit.innerText
+            if(temp>0){
+                temp = parseFloat(temp) + parseFloat(extra)
+                currentDeposit.innerHTML =  temp
+            }
+            else{
+                alert("sorry!your input data is not valid.")
+            }
+            
+            
+            //current Balance handle
+           var currentBalance =  document.querySelector("#currentBalance")
+           var temp2 = document.getElementById("depositAmount") 
+           
+           let finalBalance = parseFloat(currentBalance.innerText) + parseFloat(temp2.value)
+           currentBalance.innerHTML = finalBalance
+           document.getElementById("depositAmount").value=""
+
+            
+        }
+
+        //handleWithdraw () function generate
+        function handleWithdraw(){
+            var withdrawBalance = document.querySelector("#withdrawAmount").value
+            var currentBalance =  document.querySelector("#currentBalance")
+            var currentWithdraw = document.querySelector("#currentWithdraw")
+            var temp =  withdrawBalance
+            if(temp>0 && parseFloat(currentBalance.innerText)>=parseFloat(withdrawBalance)){
+                temp =parseFloat(temp ) + parseFloat(currentWithdraw.innerText)
+                currentWithdraw.innerHTML = temp
+            }
+            else{
+                alert("sorry!Your Input data is invalid")
+            }
+            if(parseFloat(currentBalance.innerText)>=parseFloat(withdrawBalance)){
+                let finalBalance = parseFloat(currentBalance.innerText) - parseFloat(withdrawBalance)
+                currentBalance.innerHTML = finalBalance 
+            }
+            else{
+                alert("sorry!your data is not valid")
+            }
+            document.querySelector("#withdrawAmount").value = ""
+        }
+
+    </script>
+</body>
+</html>
