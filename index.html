@@ -129,8 +129,10 @@
            var currentBalance =  document.querySelector("#currentBalance")
            var temp2 = document.getElementById("depositAmount") 
            
-           let finalBalance = parseFloat(currentBalance.innerText) + parseFloat(temp2.value)
-           currentBalance.innerHTML = finalBalance
+           if(parseFloat(temp2.value)>0){
+            let finalBalance = parseFloat(currentBalance.innerText) + parseFloat(temp2.value)
+            currentBalance.innerHTML = finalBalance
+           }
            document.getElementById("depositAmount").value=""
 
             
@@ -149,7 +151,7 @@
             else{
                 alert("sorry!Your Input data is invalid")
             }
-            if(parseFloat(currentBalance.innerText)>=parseFloat(withdrawBalance)){
+            if(temp>0 && parseFloat(currentBalance.innerText)>=parseFloat(withdrawBalance)){
                 let finalBalance = parseFloat(currentBalance.innerText) - parseFloat(withdrawBalance)
                 currentBalance.innerHTML = finalBalance 
             }
